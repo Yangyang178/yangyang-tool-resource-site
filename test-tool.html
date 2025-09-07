@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .feature {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e8f4fd;
+            border-left: 4px solid #2196F3;
+        }
+        button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛠️ 测试工具</h1>
+        <p>这是一个用于测试上传功能的HTML工具。</p>
+        
+        <div class="feature">
+            <h3>功能特点</h3>
+            <ul>
+                <li>简单易用的界面</li>
+                <li>响应式设计</li>
+                <li>现代化样式</li>
+            </ul>
+        </div>
+        
+        <div class="feature">
+            <h3>使用说明</h3>
+            <p>1. 点击下方按钮测试功能</p>
+            <p>2. 查看控制台输出</p>
+            <p>3. 体验工具效果</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <button onclick="showAlert()">测试按钮</button>
+            <button onclick="changeColor()">改变颜色</button>
+            <button onclick="showTime()">显示时间</button>
+        </div>
+        
+        <div id="output" style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 5px; min-height: 50px;">
+            <p>输出区域：点击上方按钮查看效果</p>
+        </div>
+    </div>
+    
+    <script>
+        function showAlert() {
+            alert('测试工具运行正常！');
+            document.getElementById('output').innerHTML = '<p style="color: green;">✅ 测试成功！工具运行正常。</p>';
+        }
+        
+        function changeColor() {
+            const colors = ['#FF5722', '#4CAF50', '#9C27B0', '#FF9800', '#3F51B5'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
+            document.getElementById('output').innerHTML = `<p style="color: white;">🎨 背景颜色已更改为: ${randomColor}</p>`;
+        }
+        
+        function showTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN');
+            document.getElementById('output').innerHTML = `<p style="color: blue;">⏰ 当前时间: ${timeString}</p>`;
+        }
+        
+        // 页面加载完成提示
+        window.onload = function() {
+            console.log('测试工具加载完成！');
+        }
+    </script>
+</body>
+</html>
