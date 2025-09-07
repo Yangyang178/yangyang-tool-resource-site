@@ -6,7 +6,7 @@ interface Tool {
   name: string;
   description: string;
   category: string;
-  tags: string[];
+  tags?: string[];
   icon: string;
   url?: string;
   download_url?: string;
@@ -103,9 +103,7 @@ const ToolDetail: React.FC<ToolDetailProps> = ({ tool, visible, onClose, onDownl
             <div className="tool-tags-section">
               <h4>标签</h4>
               <div className="tags-container">
-                {(Array.isArray(tool.tags) ? tool.tags : 
-                  (typeof tool.tags === 'string' && tool.tags ? (tool.tags as string).split(',') : [] as string[])
-                ).map((tag: string, index: number) => (
+                {tool.tags.map((tag: string, index: number) => (
                   <span key={index} className="tag">
                     {tag.trim()}
                   </span>

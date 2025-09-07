@@ -11,7 +11,7 @@ interface Tool {
   name: string;
   description: string;
   category: string;
-  tags: string[];
+  tags?: string[];
   icon: string;
   url?: string;
   download_url?: string;
@@ -48,9 +48,9 @@ const UserToolCard = memo<{
         </div>
       </div>
       
-      {tool.tags && (
+      {tool.tags && tool.tags.length > 0 && (
         <div className="tool-tags">
-          {(Array.isArray(tool.tags) ? tool.tags : (typeof tool.tags === 'string' ? tool.tags.split(',') : [])).map((tag: string, index: number) => (
+          {tool.tags.map((tag: string, index: number) => (
             <span key={index} className="tool-tag">{tag.trim()}</span>
           ))}
         </div>
@@ -158,7 +158,7 @@ const UserPage: FC = () => {
           name: resource.title,
           description: resource.description || '',
           category: resource.category_name || '其他',
-          tags: resource.tags || [],
+          tags: Array.isArray(resource.tags) ? resource.tags : (resource.tags ? [resource.tags] : []),
           icon: getToolIcon({ name: resource.title, category: resource.category_name || '', file_type: resource.file_type } as Tool),
           url: resource.download_url,
           download_url: resource.download_url,

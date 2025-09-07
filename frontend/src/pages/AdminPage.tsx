@@ -14,7 +14,7 @@ interface Tool {
   name: string;
   description: string;
   category: string;
-  tags: string[];
+  tags?: string[];
   icon: string;
   url?: string;
   download_url?: string;
