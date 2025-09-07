@@ -40,7 +40,7 @@ interface ToolFormData {
   category_id: number;
   download_url: string;
   download_password?: string;
-  tags: string[];
+  tags?: string[];
   file_type: string;
   file_size?: number;
 }
