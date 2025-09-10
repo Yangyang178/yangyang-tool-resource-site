@@ -12,9 +12,24 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, fallback }) =
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner-large"></div>
-        <p>验证身份中...</p>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        background: '#f8fafc'
+      }}>
+        <div style={{
+          width: '40px',
+          height: '40px',
+          border: '3px solid #e2e8f0',
+          borderTop: '3px solid #667eea',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite',
+          marginBottom: '16px'
+        }}></div>
+        <p style={{ color: '#718096' }}>验证身份中...</p>
       </div>
     );
   }

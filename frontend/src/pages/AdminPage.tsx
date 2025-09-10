@@ -8,6 +8,11 @@ import { categoryService } from '../services/categoryService';
 import { useAuth } from '../contexts/AuthContext';
 import '../App.css';
 import '../components/ToolDetail.css';
+import '../styles/admin-header.css';
+import '../styles/sidebar-categories.css';
+import '../styles/sidebar-toggle.css';
+import '../styles/tool-card-buttons.css';
+
 
 interface Tool {
   id: number;
@@ -50,7 +55,6 @@ const AdminToolCard = memo<{
         <div className="tool-icon">{getToolIcon(tool)}</div>
         <div className="tool-info">
           <h3 className="tool-name">{tool.name}</h3>
-          <p className="tool-description">{tool.description}</p>
         </div>
       </div>
       
@@ -133,7 +137,7 @@ const AdminPage: FC = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [cardSize, setCardSize] = useState<'small' | 'medium' | 'large'>('medium');
+  const cardSize = 'medium'; // 固定使用中等大小卡片
 
   // 防抖搜索
   useEffect(() => {
@@ -156,6 +160,10 @@ const AdminPage: FC = () => {
     localStorage.setItem('theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
+
+
+
+
 
   const loadData = async () => {
     try {
@@ -445,22 +453,25 @@ const AdminPage: FC = () => {
 
   return (
     <div className="app" style={{ backgroundColor: '#ffffff', color: '#000000', minHeight: '100vh' }}>
-      <header className="app-header">
-        <div className="header-left">
+      <header className="admin-header">
+        <div className="admin-header-left">
           <button 
-            className="sidebar-toggle"
+            className="admin-sidebar-toggle"
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           >
-            ☰
+            <span className="hamburger">☰</span>
           </button>
-          <h1 className="app-title">杨扬AI资源站 - 管理员</h1>
+          <h1 className="admin-site-title">杨扬AI资源站 - 管理员</h1>
         </div>
         
-        <div className="header-center">
-          <div className="search-container">
-            <div className="search-wrapper">
-              <div className="search-icon-wrapper">
-                <i className="fas fa-search search-icon"></i>
+        <div className="admin-header-center">
+          <div className="admin-search-container">
+            <div className="admin-search-wrapper">
+              <div className="admin-search-icon-wrapper">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
               </div>
               <input
                 type="text"
@@ -469,11 +480,11 @@ const AdminPage: FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onFocus={handleSearchFocus}
                 onBlur={handleSearchBlur}
-                className="search-input"
+                className="admin-search-input"
               />
               {searchTerm && (
                 <button 
-                  className="search-clear"
+                  className="admin-search-clear"
                   onClick={() => setSearchTerm('')}
                 >
                   ×
@@ -481,11 +492,11 @@ const AdminPage: FC = () => {
               )}
             </div>
             {showSuggestions && searchSuggestions.length > 0 && (
-              <div className="search-suggestions">
+              <div className="admin-search-suggestions">
                 {searchSuggestions.map((suggestion, index) => (
                   <div 
                     key={index}
-                    className="search-suggestion"
+                    className="admin-search-suggestion"
                     onClick={() => handleSuggestionClick(suggestion)}
                   >
                     {suggestion}
@@ -496,30 +507,30 @@ const AdminPage: FC = () => {
           </div>
         </div>
         
-        <div className="header-right">
+        <div className="admin-header-right">
           <button 
-            className="upload-btn"
+            className="admin-upload-btn"
             onClick={() => setUploadModalVisible(true)}
           >
-            <span className="upload-icon">📤</span>
-            上传工具
+            <span className="admin-upload-icon">📤</span>
+            <span>上传工具</span>
           </button>
           
           <button 
-            className="logout-btn"
+            className="admin-logout-btn"
             onClick={logout}
             title="退出管理员模式"
           >
-            <span className="logout-icon">🚪</span>
-            退出
+            <span className="admin-logout-icon">🚪</span>
+            <span>退出</span>
           </button>
           
           <button 
-            className="theme-toggle"
+            className="admin-theme-toggle"
             onClick={toggleTheme}
             title={theme === 'light' ? '切换到深色模式' : '切换到浅色模式'}
           >
-            <span className="theme-icon">
+            <span className="admin-theme-icon">
               {theme === 'light' ? '🌙' : '☀️'}
             </span>
           </button>
@@ -560,36 +571,8 @@ const AdminPage: FC = () => {
                 <div className="header-left">
                   <h2>工具管理 ({filteredTools.length})</h2>
                 </div>
-                <div className="header-right">
-                  <div className="card-size-controller">
-                    <span className="controller-label">卡片大小</span>
-                    <div className="size-buttons">
-                      <button 
-                        className={`size-btn ${cardSize === 'small' ? 'active' : ''}`}
-                        onClick={() => setCardSize('small')}
-                        title="小卡片"
-                      >
-                        ⚪
-                      </button>
-                      <button 
-                        className={`size-btn ${cardSize === 'medium' ? 'active' : ''}`}
-                        onClick={() => setCardSize('medium')}
-                        title="中等卡片"
-                      >
-                        ⚫
-                      </button>
-                      <button 
-                        className={`size-btn ${cardSize === 'large' ? 'active' : ''}`}
-                        onClick={() => setCardSize('large')}
-                        title="大卡片"
-                      >
-                        ⬛
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
-              <div className={`tools-grid card-size-${cardSize}`}>
+              <div className="tools-grid card-size-medium">
                 {visibleTools.map(tool => (
                   <AdminToolCard
                     key={tool.id}
@@ -626,14 +609,21 @@ const AdminPage: FC = () => {
        />
        
        <ToolDetail
-         tool={selectedTool}
-         visible={toolDetailVisible}
-         onClose={() => {
-           setToolDetailVisible(false);
-           setSelectedTool(null);
-         }}
-         onDownload={handleToolDownload}
-       />
+        tool={selectedTool}
+        visible={toolDetailVisible}
+        onClose={() => {
+          setToolDetailVisible(false);
+          setSelectedTool(null);
+        }}
+        onDownload={handleToolDownload}
+      />
+      
+      {/* 卡片大小变化指示器 */}
+      {false && (
+        <div className="card-size-indicator show">
+          切换到{cardSize === 'medium' ? '标准' : '详细'}视图
+        </div>
+      )}
        
        {/* 编辑工具模态框 */}
        <EditToolModal

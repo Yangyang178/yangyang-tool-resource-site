@@ -1,0 +1,677 @@
+/* 工具页面样式 - 全新设计 */
+
+/* 页面布局 */
+.app-body {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - var(--header-height));
+  overflow: hidden;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  overflow-y: auto;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar.collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* 分类列表 */
+.categories {
+  padding: var(--spacing-lg);
+}
+
+.categories h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-list li {
+  margin-bottom: var(--spacing-xs);
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.category-item:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.category-item.active {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: var(--text-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.category-icon {
+  margin-right: var(--spacing-sm);
+  font-size: 16px;
+}
+
+.category-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.category-count {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* 主内容区域 */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+/* 工具列表头部 */
+.tools-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tools-header .header-left h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tools-header .header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+/* 卡片大小控制器 */
+.card-size-controller {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.8);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+.controller-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.size-buttons {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.size-btn {
+  width: 36px;
+  height: 36px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  background: rgba(248, 250, 252, 0.8);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.size-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.size-btn.active {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  border-color: var(--primary-color);
+  color: var(--text-white);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* 工具网格布局 - 全新设计 */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--spacing-lg);
+  padding: var(--spacing-2xl);
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* 工具网格布局 - 固定中等大小 */
+.tools-grid.card-size-medium {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+/* 全新工具卡片设计 */
+.tool-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  border: 1px solid rgba(226, 232, 240, 0.4);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  backdrop-filter: blur(12px);
+  min-height: 340px;
+  max-height: 340px;
+}
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    var(--primary-color) 0%, 
+    var(--secondary-color) 50%, 
+    #10b981 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.12),
+    0 8px 16px rgba(0, 0, 0, 0.08);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.tool-card:hover::before {
+  opacity: 1;
+}
+
+/* 工具卡片头部 */
+.tool-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-2xl) var(--spacing-2xl) var(--spacing-lg) var(--spacing-2xl);
+  flex-shrink: 0;
+}
+
+/* 工具图标 */
+.tool-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.12) 0%, 
+    rgba(168, 85, 247, 0.12) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: var(--primary-color);
+  flex-shrink: 0;
+  border: 2px solid rgba(99, 102, 241, 0.15);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1);
+}
+
+.tool-card:hover .tool-icon {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.15) 0%, 
+    rgba(168, 85, 247, 0.15) 100%);
+  border-color: rgba(99, 102, 241, 0.2);
+  transform: scale(1.05);
+}
+
+/* 工具信息 */
+.tool-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tool-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.tool-description {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 工具内容区域 */
+.tool-content {
+  flex: 1;
+  padding: 0 var(--spacing-2xl) var(--spacing-lg) var(--spacing-2xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* 工具标签 */
+.tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.tool-tag {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.1) 0%, 
+    rgba(168, 85, 247, 0.1) 100%);
+  color: var(--primary-color);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+}
+
+.tool-tag:hover {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.12) 0%, 
+    rgba(168, 85, 247, 0.12) 100%);
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+/* 工具操作按钮 */
+.tool-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl) var(--spacing-2xl) var(--spacing-2xl) var(--spacing-2xl);
+  flex-shrink: 0;
+  border-top: 1px solid rgba(226, 232, 240, 0.3);
+  background: linear-gradient(180deg, 
+    rgba(248, 250, 252, 0.4) 0%, 
+    rgba(241, 245, 249, 0.6) 100%);
+  min-height: 80px;
+}
+
+.card-action {
+  flex: 1;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border: 2px solid transparent;
+  border-radius: var(--radius-xl);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  min-height: 48px;
+}
+
+.card-action::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.card-action:hover::before {
+  left: 100%;
+}
+
+.card-action.primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: var(--text-white);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.card-action.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+.card-action.secondary {
+  background: rgba(248, 250, 252, 0.8);
+  color: var(--text-secondary);
+  border-color: rgba(226, 232, 240, 0.8);
+}
+
+.card-action.secondary:hover {
+  background: rgba(99, 102, 241, 0.05);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+
+
+/* 中等卡片优化 */
+.tools-grid.card-size-medium .tool-card {
+  min-height: 340px;
+  max-height: 340px;
+  border-radius: 20px;
+}
+
+.tools-grid.card-size-medium .tool-header {
+  padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-md) var(--spacing-xl);
+  gap: var(--spacing-lg);
+}
+
+.tools-grid.card-size-medium .tool-icon {
+  width: 56px;
+  height: 56px;
+  font-size: 28px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1);
+}
+
+.tools-grid.card-size-medium .tool-name {
+  font-size: 19px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.tools-grid.card-size-medium .tool-description {
+  font-size: 15px;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.tools-grid.card-size-medium .tool-content {
+  padding: 0 var(--spacing-xl) var(--spacing-md) var(--spacing-xl);
+  justify-content: flex-end;
+}
+
+.tools-grid.card-size-medium .tool-tag {
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: 12px;
+}
+
+.tools-grid.card-size-medium .tool-actions {
+  padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl) var(--spacing-xl);
+  gap: var(--spacing-sm);
+  min-height: 80px;
+}
+
+.tools-grid.card-size-medium .card-action {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 13px;
+  min-height: 40px;
+}
+
+
+
+/* 深色模式适配 */
+[data-theme="dark"] .main-content {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+[data-theme="dark"] .tools-header {
+  background: rgba(30, 41, 59, 0.95);
+  border-bottom-color: rgba(71, 85, 105, 0.6);
+}
+
+[data-theme="dark"] .tools-header .header-left h2 {
+  background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .card-size-controller {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(71, 85, 105, 0.6);
+}
+
+[data-theme="dark"] .controller-label {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .size-btn {
+  background: rgba(51, 65, 85, 0.8);
+  color: #94a3b8;
+  border-color: rgba(71, 85, 105, 0.5);
+}
+
+[data-theme="dark"] .size-btn:hover {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: var(--primary-color);
+  color: #a5b4fc;
+}
+
+[data-theme="dark"] .size-btn.active {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  border-color: var(--primary-color);
+  color: var(--text-white);
+}
+
+/* 深色模式下的工具卡片 */
+[data-theme="dark"] .tool-card {
+  background: rgba(30, 41, 59, 0.95);
+  border-color: rgba(71, 85, 105, 0.4);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .tool-card:hover {
+  background: rgba(30, 41, 59, 0.98);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .tool-icon {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.2) 0%, 
+    rgba(168, 85, 247, 0.2) 100%);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: #a5b4fc;
+}
+
+[data-theme="dark"] .tool-card:hover .tool-icon {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.25) 0%, 
+    rgba(168, 85, 247, 0.25) 100%);
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+[data-theme="dark"] .tool-name {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .tool-description {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .tool-tag {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.15) 0%, 
+    rgba(168, 85, 247, 0.15) 100%);
+  color: #a5b4fc;
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .tool-tag:hover {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.2) 0%, 
+    rgba(168, 85, 247, 0.2) 100%);
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+[data-theme="dark"] .tool-actions {
+  background: linear-gradient(180deg, 
+    rgba(15, 23, 42, 0.4) 0%, 
+    rgba(30, 41, 59, 0.6) 100%);
+  border-top-color: rgba(71, 85, 105, 0.3);
+}
+
+[data-theme="dark"] .card-action.secondary {
+  background: rgba(51, 65, 85, 0.8);
+  color: #cbd5e1;
+  border-color: rgba(71, 85, 105, 0.8);
+}
+
+[data-theme="dark"] .card-action.secondary:hover {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* 深色模式下的侧边栏 */
+[data-theme="dark"] .sidebar {
+  background: rgba(30, 41, 59, 0.95);
+  border-right-color: rgba(71, 85, 105, 0.6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .categories h3 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .categories h3::after {
+  background: linear-gradient(135deg, #a5b4fc 0%, #c4b5fd 100%);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+    padding: var(--spacing-lg);
+  }
+  
+  .sidebar {
+    position: absolute;
+    left: -280px;
+    z-index: 1000;
+    height: 100%;
+  }
+  
+  .sidebar.open {
+    left: 0;
+  }
+  
+  .tools-header {
+    padding: var(--spacing-lg);
+  }
+  
+  .tools-header .header-left h2 {
+    font-size: 20px;
+  }
+}
+
+/* 加载动画 */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tool-card {
+  animation: cardFadeIn 0.6s ease-out;
+}
+
+/* 空状态样式 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.5;
+}
+
+.empty-state-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+}
+
+.empty-state-description {
+  font-size: 14px;
+  opacity: 0.8;
+}

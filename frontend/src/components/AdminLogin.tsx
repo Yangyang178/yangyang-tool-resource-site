@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import './AdminLogin.css';
 
 interface AdminLoginProps {
   onLoginSuccess?: () => void;
@@ -11,6 +11,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +27,11 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
       const success = await login(password);
       if (success) {
         setPassword('');
-        onLoginSuccess?.();
+        if (onLoginSuccess) {
+          onLoginSuccess();
+        } else {
+          navigate('/admin');
+        }
       } else {
         setError('密码错误，请重试');
       }
@@ -38,7 +43,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="admin-login-overlay" style={{
+    <div style={{
       position: 'fixed',
       top: 0,
       left: 0,
@@ -50,63 +55,67 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
       justifyContent: 'center',
       zIndex: 9999
     }}>
-      <div className="admin-login-modal" style={{
+      <div style={{
         background: 'white',
-        borderRadius: '16px',
         padding: '2rem',
-        width: '100%',
-        maxWidth: '400px',
-        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)'
+        borderRadius: '8px',
+        minWidth: '300px',
+        textAlign: 'center',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
       }}>
-        <div className="admin-login-header">
-          <h2>管理员登录</h2>
-          <p>请输入管理员密码以访问管理功能</p>
-        </div>
+        <h2 style={{ marginBottom: '1rem', color: '#333' }}>管理员登录</h2>
+        <p style={{ marginBottom: '1rem', color: '#666' }}>请输入管理员密码</p>
         
-        <form onSubmit={handleSubmit} className="admin-login-form">
-          <div className="form-group">
-            <label htmlFor="password">管理员密码</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="请输入管理员密码"
-              disabled={loading}
-              autoFocus
-            />
+        {error && (
+          <div style={{
+            background: '#fee',
+            color: '#c33',
+            padding: '0.5rem',
+            borderRadius: '4px',
+            marginBottom: '1rem'
+          }}>
+            {error}
           </div>
-          
-          {error && (
-            <div className="error-message">
-              <span className="error-icon">⚠️</span>
-              {error}
-            </div>
-          )}
-          
-          <div className="form-actions">
-            <button
-              type="submit"
-              className="login-btn"
-              disabled={loading || !password.trim()}
-            >
-              {loading ? (
-                <>
-                  <span className="loading-spinner"></span>
-                  登录中...
-                </>
-              ) : (
-                '登录'
-              )}
-            </button>
-          </div>
+        )}
+        
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="输入密码"
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '0.75rem',
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              marginBottom: '1rem',
+              fontSize: '16px',
+              boxSizing: 'border-box'
+            }}
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '0.75rem',
+              background: loading ? '#ccc' : '#667eea',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              fontSize: '16px',
+              cursor: loading ? 'not-allowed' : 'pointer'
+            }}
+          >
+            {loading ? '登录中...' : '登录'}
+          </button>
         </form>
         
-        <div className="admin-login-footer">
-          <p className="security-note">
-            🔒 此页面仅供管理员使用，请妥善保管密码
-          </p>
-        </div>
+        <p style={{ marginTop: '1rem', fontSize: '14px', color: '#999' }}>
+          默认密码: admin123
+        </p>
       </div>
     </div>
   );

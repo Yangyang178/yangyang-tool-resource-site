@@ -1,0 +1,116 @@
+/* CSS变量 - 统一设计系统 */
+:root {
+  /* 颜色系统 */
+  --primary-color: #667eea;
+  --primary-hover: #5a6fd8;
+  --primary-dark: #5a67d8;
+  --secondary-color: #764ba2;
+  --accent-color: #4facfe;
+  --success-color: #2ecc71;
+  --warning-color: #f39c12;
+  --error-color: #e74c3c;
+  --info-color: #3498db;
+  
+  /* 背景色 */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  
+  /* 文字颜色 */
+  --text-primary: #2d3748;
+  --text-secondary: #718096;
+  --text-muted: #a0aec0;
+  --text-white: #ffffff;
+  
+  /* 边框和分割线 */
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e0;
+  
+  /* 阴影 */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+  
+  /* 圆角 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  
+  /* 间距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  
+  /* 动画 */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* 布局 */
+  --header-height: 64px;
+  --sidebar-width: 280px;
+  --container-max-width: 1200px;
+}
+
+/* 通用渐变 */
+:root {
+  --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+}
+
+.gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, var(--success-color) 0%, #27ae60 100%);
+}
+
+.gradient-warning {
+  background: linear-gradient(135deg, var(--warning-color) 0%, #e67e22 100%);
+}
+
+.gradient-error {
+  background: linear-gradient(135deg, var(--error-color) 0%, #c0392b 100%);
+}
+
+.gradient-info {
+  background: linear-gradient(135deg, var(--info-color) 0%, #2980b9 100%);
+}
+
+/* 通用动画 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 通用工具类 */
+.animate-fade-in { animation: fadeIn var(--transition-normal); }
+.animate-slide-in { animation: slideIn var(--transition-normal); }
+.animate-pulse { animation: pulse 2s var(--easing-smooth) infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
+
+.transition-all { transition: all var(--transition-normal); }
+.transition-fast { transition: all var(--transition-fast); }
+.transition-slow { transition: all var(--transition-slow); }

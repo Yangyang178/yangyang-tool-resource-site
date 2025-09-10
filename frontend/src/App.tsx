@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import UserPage from './pages/UserPage';
+import UserProfile from './pages/UserProfile';
 import AdminPage from './pages/AdminPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminLogin from './components/AdminLogin';
@@ -14,6 +15,9 @@ function App() {
           {/* 用户页面 - 默认路由 */}
           <Route path="/" element={<UserPage />} />
           <Route path="/user" element={<UserPage />} />
+          
+          {/* 用户中心页面 */}
+          <Route path="/user/profile" element={<UserProfile />} />
           
           {/* 管理员登录页面 */}
           <Route path="/admin/login" element={<AdminLogin />} />

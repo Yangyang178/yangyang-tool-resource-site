@@ -1,15 +1,26 @@
 {
-  "name": "frontend",
+  "name": "resource-station-frontend",
+  "version": "1.0.0",
+  "description": "个人资源站前端应用",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite preview",
     "dev": "vite",
-    "build": "vite build",
-    "build:check": "tsc -b && vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "resource",
+    "frontend",
+    "react",
+    "vite"
+  ],
+  "author": "Developer",
+  "license": "MIT",
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.12",
     "@types/node": "^24.3.0",

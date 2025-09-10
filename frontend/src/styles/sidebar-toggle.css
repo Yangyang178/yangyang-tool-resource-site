@@ -1,0 +1,368 @@
+/* 侧边栏切换按钮重新设计 */
+
+/* 管理员页面侧边栏切换按钮 */
+.admin-sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, 
+    #667eea 0%, 
+    #764ba2 50%, 
+    #667eea 100%);
+  background-size: 200% 200%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 25px rgba(102, 126, 234, 0.25),
+    0 4px 12px rgba(102, 126, 234, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 按钮内部光效 */
+.admin-sidebar-toggle::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: rotate 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* 按钮悬停效果 */
+.admin-sidebar-toggle:hover {
+  transform: translateY(-3px) scale(1.08);
+  background-position: 100% 100%;
+  box-shadow: 
+    0 12px 35px rgba(102, 126, 234, 0.4),
+    0 8px 20px rgba(102, 126, 234, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.admin-sidebar-toggle:hover::before {
+  opacity: 1;
+}
+
+/* 按钮按下效果 */
+.admin-sidebar-toggle:active {
+  transform: translateY(-1px) scale(1.02);
+  transition: all 0.1s ease;
+}
+
+/* 汉堡菜单图标重新设计 */
+.admin-sidebar-toggle .hamburger {
+  position: relative;
+  width: 24px;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.admin-sidebar-toggle .hamburger::before,
+.admin-sidebar-toggle .hamburger::after {
+  content: '';
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 255, 255, 1) 50%, 
+    rgba(255, 255, 255, 0.9) 100%);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.admin-sidebar-toggle .hamburger::before {
+  transform-origin: top left;
+}
+
+.admin-sidebar-toggle .hamburger::after {
+  transform-origin: bottom left;
+}
+
+/* 中间线条 */
+.admin-sidebar-toggle .hamburger {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 255, 255, 1) 50%, 
+    rgba(255, 255, 255, 0.9) 100%);
+  height: 3px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 悬停时的图标动画 */
+.admin-sidebar-toggle:hover .hamburger {
+  transform: scale(1.1);
+}
+
+.admin-sidebar-toggle:hover .hamburger::before {
+  transform: translateY(-1px) rotate(3deg);
+}
+
+.admin-sidebar-toggle:hover .hamburger::after {
+  transform: translateY(1px) rotate(-3deg);
+}
+
+/* 用户页面侧边栏切换按钮 */
+.user-sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, 
+    #4f46e5 0%, 
+    #7c3aed 50%, 
+    #4f46e5 100%);
+  background-size: 200% 200%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 25px rgba(79, 70, 229, 0.25),
+    0 4px 12px rgba(79, 70, 229, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 用户按钮内部光效 */
+.user-sidebar-toggle::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: rotate 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* 用户按钮悬停效果 */
+.user-sidebar-toggle:hover {
+  transform: translateY(-3px) scale(1.08);
+  background-position: 100% 100%;
+  box-shadow: 
+    0 12px 35px rgba(79, 70, 229, 0.4),
+    0 8px 20px rgba(79, 70, 229, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.user-sidebar-toggle:hover::before {
+  opacity: 1;
+}
+
+/* 用户按钮按下效果 */
+.user-sidebar-toggle:active {
+  transform: translateY(-1px) scale(1.02);
+  transition: all 0.1s ease;
+}
+
+/* 用户页面汉堡菜单图标 */
+.user-sidebar-toggle .hamburger {
+  position: relative;
+  width: 24px;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.user-sidebar-toggle .hamburger::before,
+.user-sidebar-toggle .hamburger::after {
+  content: '';
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 255, 255, 1) 50%, 
+    rgba(255, 255, 255, 0.9) 100%);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.user-sidebar-toggle .hamburger::before {
+  transform-origin: top left;
+}
+
+.user-sidebar-toggle .hamburger::after {
+  transform-origin: bottom left;
+}
+
+/* 用户页面中间线条 */
+.user-sidebar-toggle .hamburger {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 255, 255, 1) 50%, 
+    rgba(255, 255, 255, 0.9) 100%);
+  height: 3px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 用户页面悬停时的图标动画 */
+.user-sidebar-toggle:hover .hamburger {
+  transform: scale(1.1);
+}
+
+.user-sidebar-toggle:hover .hamburger::before {
+  transform: translateY(-1px) rotate(3deg);
+}
+
+.user-sidebar-toggle:hover .hamburger::after {
+  transform: translateY(1px) rotate(-3deg);
+}
+
+/* 旋转动画 */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 侧边栏展开/收起时的按钮状态 */
+.sidebar.collapsed ~ * .admin-sidebar-toggle,
+.sidebar.collapsed ~ * .user-sidebar-toggle {
+  background: linear-gradient(135deg, 
+    #10b981 0%, 
+    #059669 50%, 
+    #10b981 100%);
+  box-shadow: 
+    0 8px 25px rgba(16, 185, 129, 0.25),
+    0 4px 12px rgba(16, 185, 129, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.sidebar.collapsed ~ * .admin-sidebar-toggle:hover,
+.sidebar.collapsed ~ * .user-sidebar-toggle:hover {
+  box-shadow: 
+    0 12px 35px rgba(16, 185, 129, 0.4),
+    0 8px 20px rgba(16, 185, 129, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .admin-sidebar-toggle,
+[data-theme="dark"] .user-sidebar-toggle {
+  box-shadow: 
+    0 8px 25px rgba(102, 126, 234, 0.3),
+    0 4px 12px rgba(102, 126, 234, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .admin-sidebar-toggle:hover,
+[data-theme="dark"] .user-sidebar-toggle:hover {
+  box-shadow: 
+    0 12px 35px rgba(102, 126, 234, 0.5),
+    0 8px 20px rgba(102, 126, 234, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .admin-sidebar-toggle,
+  .user-sidebar-toggle {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+  
+  .admin-sidebar-toggle .hamburger,
+  .user-sidebar-toggle .hamburger {
+    width: 20px;
+    height: 16px;
+  }
+  
+  .admin-sidebar-toggle .hamburger::before,
+  .admin-sidebar-toggle .hamburger::after,
+  .user-sidebar-toggle .hamburger::before,
+  .user-sidebar-toggle .hamburger::after {
+    height: 2.5px;
+  }
+  
+  .admin-sidebar-toggle .hamburger,
+  .user-sidebar-toggle .hamburger {
+    height: 2.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-sidebar-toggle,
+  .user-sidebar-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+  
+  .admin-sidebar-toggle .hamburger,
+  .user-sidebar-toggle .hamburger {
+    width: 18px;
+    height: 14px;
+  }
+}
+
+/* 按钮脉冲效果（可选） */
+@keyframes pulse {
+  0% {
+    box-shadow: 
+      0 8px 25px rgba(102, 126, 234, 0.25),
+      0 4px 12px rgba(102, 126, 234, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 8px 25px rgba(102, 126, 234, 0.35),
+      0 4px 12px rgba(102, 126, 234, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  100% {
+    box-shadow: 
+      0 8px 25px rgba(102, 126, 234, 0.25),
+      0 4px 12px rgba(102, 126, 234, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* 可选：为按钮添加轻微的脉冲效果 */
+.admin-sidebar-toggle.pulse,
+.user-sidebar-toggle.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}

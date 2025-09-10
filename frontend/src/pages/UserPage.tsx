@@ -5,6 +5,12 @@ import { resourceService } from '../services/resourceService';
 import { categoryService } from '../services/categoryService';
 import '../App.css';
 import '../components/ToolDetail.css';
+import '../styles/user-header.css';
+import '../styles/sidebar-categories.css';
+import '../styles/sidebar-toggle.css';
+import '../styles/tool-card-buttons.css';
+import '../styles/welcome-footer.css';
+
 
 interface Tool {
   id: number;
@@ -44,7 +50,6 @@ const UserToolCard = memo<{
         <div className="tool-icon">{getToolIcon(tool)}</div>
         <div className="tool-info">
           <h3 className="tool-name">{tool.name}</h3>
-          <p className="tool-description">{tool.description}</p>
         </div>
       </div>
       
@@ -100,7 +105,6 @@ const UserPage: FC = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [cardSize, setCardSize] = useState<'small' | 'medium' | 'large'>('medium');
 
   // 防抖搜索
   useEffect(() => {
@@ -124,14 +128,18 @@ const UserPage: FC = () => {
     document.documentElement.setAttribute('data-theme', newTheme);
   };
 
+
+
+
+
   const loadData = async () => {
     try {
       setLoading(true);
       
       // 并行加载分类和资源数据
       const [categoriesResponse, resourcesResponse] = await Promise.all([
-        categoryService.getCategories(true),
-        resourceService.getResources({ limit: 100 })
+        categoryService.getCategories(),
+        resourceService.getResources()
       ]);
       
       // 处理分类数据
@@ -370,6 +378,19 @@ const UserPage: FC = () => {
               : t
           )
         );
+        
+        // 记录下载历史到localStorage
+        const downloadRecord = {
+          id: `download_${tool.id}_${Date.now()}`,
+          toolName: tool.name,
+          downloadTime: new Date().toLocaleString('zh-CN'),
+          fileSize: tool.file_size || '未知',
+          category: tool.category
+        };
+        
+        const existingHistory = JSON.parse(localStorage.getItem('downloadHistory') || '[]');
+        const updatedHistory = [downloadRecord, ...existingHistory].slice(0, 50); // 最多保存50条记录
+        localStorage.setItem('downloadHistory', JSON.stringify(updatedHistory));
       }
     } catch (error) {
       console.error('下载失败:', error);
@@ -387,22 +408,25 @@ const UserPage: FC = () => {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <div className="header-left">
+      <header className="user-header">
+        <div className="user-header-left">
           <button 
-            className="sidebar-toggle"
+            className="user-sidebar-toggle"
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           >
-            ☰
+            <span className="hamburger">☰</span>
           </button>
-          <h1 className="app-title">杨扬AI资源站</h1>
+          <h1 className="user-site-title">杨扬AI资源站</h1>
         </div>
         
-        <div className="header-center">
-          <div className="search-container">
-            <div className="search-wrapper">
-              <div className="search-icon-wrapper">
-                <i className="fas fa-search search-icon"></i>
+        <div className="user-header-center">
+          <div className="user-search-container">
+            <div className="user-search-wrapper">
+              <div className="user-search-icon-wrapper">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
               </div>
               <input
                 type="text"
@@ -411,11 +435,11 @@ const UserPage: FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onFocus={handleSearchFocus}
                 onBlur={handleSearchBlur}
-                className="search-input"
+                className="user-search-input"
               />
               {searchTerm && (
                 <button 
-                  className="search-clear"
+                  className="user-search-clear"
                   onClick={() => setSearchTerm('')}
                 >
                   ×
@@ -423,11 +447,11 @@ const UserPage: FC = () => {
               )}
             </div>
             {showSuggestions && searchSuggestions.length > 0 && (
-              <div className="search-suggestions">
+              <div className="user-search-suggestions">
                 {searchSuggestions.map((suggestion, index) => (
                   <div 
                     key={index}
-                    className="search-suggestion"
+                    className="user-search-suggestion"
                     onClick={() => handleSuggestionClick(suggestion)}
                   >
                     {suggestion}
@@ -438,13 +462,21 @@ const UserPage: FC = () => {
           </div>
         </div>
         
-        <div className="header-right">
+        <div className="user-header-right">
           <button 
-            className="theme-toggle"
+            className="user-center-btn"
+            onClick={() => window.location.href = '/user/profile'}
+            title="用户中心"
+          >
+            <span className="user-center-icon">👤</span>
+            <span className="user-center-text">用户中心</span>
+          </button>
+          <button 
+            className="user-theme-toggle"
             onClick={toggleTheme}
             title={theme === 'light' ? '切换到深色模式' : '切换到浅色模式'}
           >
-            <span className="theme-icon">
+            <span className="user-theme-icon">
               {theme === 'light' ? '🌙' : '☀️'}
             </span>
           </button>
@@ -485,36 +517,8 @@ const UserPage: FC = () => {
                 <div className="header-left">
                   <h2>工具列表 ({filteredTools.length})</h2>
                 </div>
-                <div className="header-right">
-                  <div className="card-size-controller">
-                    <span className="controller-label">卡片大小</span>
-                    <div className="size-buttons">
-                      <button 
-                        className={`size-btn ${cardSize === 'small' ? 'active' : ''}`}
-                        onClick={() => setCardSize('small')}
-                        title="小卡片"
-                      >
-                        ⚪
-                      </button>
-                      <button 
-                        className={`size-btn ${cardSize === 'medium' ? 'active' : ''}`}
-                        onClick={() => setCardSize('medium')}
-                        title="中等卡片"
-                      >
-                        ⚫
-                      </button>
-                      <button 
-                        className={`size-btn ${cardSize === 'large' ? 'active' : ''}`}
-                        onClick={() => setCardSize('large')}
-                        title="大卡片"
-                      >
-                        ⬛
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
-              <div className={`tools-grid card-size-${cardSize}`}>
+              <div className="tools-grid card-size-medium">
                 {visibleTools.map(tool => (
                   <UserToolCard
                     key={tool.id}
@@ -535,10 +539,30 @@ const UserPage: FC = () => {
             </>
           )}
           
-          {/* 用户模式提示信息 */}
-          <div className="user-mode-tip">
-            <p>🎉 欢迎使用杨扬AI资源站！您可以浏览和下载各种实用工具。</p>
-          </div>
+          {/* 页面底部欢迎信息 */}
+          <footer className="welcome-footer">
+            <div className="welcome-container">
+              <div className="welcome-icon-group">
+                <div className="welcome-icon welcome-icon-1">🎉</div>
+                <div className="welcome-icon welcome-icon-2">🛠️</div>
+                <div className="welcome-icon welcome-icon-3">⚡</div>
+              </div>
+              <div className="welcome-content">
+                <h3 className="welcome-title">欢迎使用杨扬AI资源站</h3>
+                <p className="welcome-subtitle">发现、下载各种实用工具，提升您的工作效率</p>
+                <div className="welcome-features">
+                  <span className="feature-tag">🔍 智能搜索</span>
+                  <span className="feature-tag">📂 分类浏览</span>
+                  <span className="feature-tag">⬇️ 快速下载</span>
+                </div>
+              </div>
+              <div className="welcome-decoration">
+                <div className="decoration-circle decoration-circle-1"></div>
+                <div className="decoration-circle decoration-circle-2"></div>
+                <div className="decoration-circle decoration-circle-3"></div>
+              </div>
+            </div>
+          </footer>
         </main>
       </div>
       
@@ -551,6 +575,8 @@ const UserPage: FC = () => {
         }}
         onDownload={handleToolDownload}
       />
+      
+
     </div>
   );
 };
